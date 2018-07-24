@@ -1,0 +1,242 @@
+package k;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.support.ui.Select;
+
+
+public class Webdriver {
+	
+			public static void main(String[] args) throws InterruptedException 
+			{
+				System.setProperty("webdriver.firefox.bin",
+						"C:/Users/ikrithik/AppData/Local/Mozilla Firefox/firefox.exe");
+		        FirefoxProfile profile = new FirefoxProfile();
+		        profile.setPreference("network.proxy.type", 1);
+		        profile.setPreference("network.proxy.http", "10.219.96.26");
+		        profile.setPreference("network.proxy.http_port", 8080);
+		        profile.setPreference("network.proxy.ssl", "10.219.96.26");
+		        profile.setPreference("network.proxy.ssl_port", 8080);
+		        
+		        FirefoxDriver driver = new FirefoxDriver(profile);
+		        driver.get("http://demo.opencart.com");
+				Thread.sleep(1000);
+				System.out.println("Webpage openend");
+		        System.out.println("execution is paused for 1.5 seconds");
+		        String title1 = "Your Store";
+		        boolean source = driver.getPageSource().contains(title1);
+		        
+		        if(source)
+		        {
+		        	System.out.println("Title is verified");
+		        }
+		        else
+		        {
+		        	System.out.println(title1 + " is not present");
+		        }
+		        System.out.println("Waiting for the page to load");
+		        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS) ;
+		        java.util.List<WebElement> links = driver.findElements(By.tagName("a"));
+		        
+				int link=links.size();
+				if(link==73)
+						{
+							System.out.println("Links are verified");
+						}
+				else
+				{
+					System.out.println("Links are not verified");
+				}
+				driver.findElement(By.className("caret")).click();
+				Thread.sleep(1000);
+				System.out.println("Clicked on Account");
+				driver.findElement(By.cssSelector(".dropdown-menu.dropdown-menu-right>li>a")).click();
+				driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS) ;
+				System.out.println("Clicked on Register");
+				driver.findElement(By.xpath(".//*[@id='input-firstname']")).sendKeys("kriti");
+				WebElement we = driver.findElement(By.xpath(".//*[@id='input-firstname']"));
+				String name = we.getAttribute("value");
+				if(Validate.ValidateName(name))
+				{
+					System.out.println("First name is verified");
+				}
+				else
+				{
+					System.out.println("First name is not verified");
+				}
+				driver.findElement(By.name("lastname")).sendKeys("illa");
+				Thread.sleep(1000);
+				WebElement last = driver.findElement(By.name("lastname"));
+				String lname = last.getAttribute("value");
+				if(Validate.ValidateName(lname))
+				{
+					System.out.println("Last name is verified");
+				}
+				else
+				{
+					System.out.println("Last name not is verified");
+				}
+				driver.findElement(By.cssSelector("#input-email")).sendKeys("illakrka@gmail.com");
+				Thread.sleep(1000);
+				WebElement mail = driver.findElement(By.cssSelector("#input-email"));
+				String vmail = mail.getAttribute("value");
+				if(Validate.Validatemail(vmail))
+				{
+					System.out.println("Email is verified");
+				}
+				else
+				{
+					System.out.println("Email is not verified");
+				}
+				driver.findElement(By.id("input-telephone")).sendKeys("9876543210");
+				Thread.sleep(1000);
+				WebElement phone = driver.findElement(By.id("input-telephone"));
+				String number = phone.getAttribute("value");
+				if(Validate.ValidateNo(number))
+				{
+					System.out.println("Phone number is verified");
+				}
+				else
+				{
+					System.out.println("Phone number is not verified");
+				}
+				driver.findElement(By.id("input-password")).sendKeys("dolly");
+				Thread.sleep(1000);
+				WebElement pwrd = driver.findElement(By.className("form-control"));
+				String password = pwrd.getAttribute("value");
+				driver.findElement(By.id("input-confirm")).sendKeys("dolly");
+			    WebElement pwrd1 = driver.findElement(By.className("form-control"));
+				String password1 = pwrd1.getAttribute("value");
+				if(password.equals(password1))
+				{
+					System.out.println("Both the passwords are matching");
+				}
+				else
+				{
+					System.out.println("Both the passwords are not matching");
+				}
+					
+		
+boolean sub = driver.findElement(By.xpath(".//*[@id='content']/form/fieldset[3]/div/label")).isDisplayed();
+if(sub==true)
+{
+	System.out.println("Subscribe radio button is verified");
+}
+else
+{
+	System.out.println("Radio button is not present");
+}
+
+driver.findElement(By.xpath(".//*[@id='content']/form/fieldset[3]/div/div/label[2]")).click();
+System.out.println("Clicked on no button");
+
+driver.findElement(By.name("agree")).click();
+System.out.println("Clicked on checkbox");
+
+driver.findElement(By.xpath(".//*[@id='content']/form/div/div/input[2]")).click();
+System.out.println("Clicked on Continue button");
+
+driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+
+if(driver.getPageSource().contains("Your Account Has Been Created!"))
+{
+	System.out.println("Heading is verified");
+}
+else
+{
+	System.out.println("Heading is not verified");
+}
+
+//Click on Phones & PDA's
+driver.findElement(By.xpath(".//*[@id='menu']/div[2]/ul/li[6]/a")).click();
+System.out.println("Clicked on Phones & PDA's");
+Thread.sleep(1500);
+
+driver.findElement(By.cssSelector(".img-responsive")).click();
+System.out.println("Clicked on HTC Touch HD");
+Thread.sleep(1500);
+
+if(driver.getPageSource().contains("HTC Touch HD"))
+{
+	System.out.println("Title Verified");
+}
+else
+{
+	System.out.println("Title not Verified");
+}
+
+driver.navigate().back();
+System.out.println("Navigated back");
+
+driver.findElement(By.xpath(".//*[@id='content']/div[2]/div[1]/div/div[2]/div[2]/button[1]")).click();
+System.out.println("Clicked: Add to Cart");
+Thread.sleep(1500);
+
+if(driver.getPageSource().contains(" Success: You have added HTC Touch HD to your shopping cart!"))
+{
+	System.out.println("Message is verified");
+}
+else
+{
+	System.out.println("Message is not verified");
+}
+
+driver.findElement(By.xpath("html/body/footer/div/div/div[3]/ul/li[1]/a")).click();
+System.out.println("Clicked: Brands");
+Thread.sleep(1500);
+
+if(driver.getTitle().equals("Find Your Favorite Brand"))
+{
+	System.out.println("Brand Title is verified");
+}
+else
+{
+	System.out.println("Brand Title is not verified");
+}
+
+driver.findElement(By.linkText("Canon")).click();
+boolean text7=driver.getPageSource().contains("Canon");
+if(text7)
+{
+	System.out.println("Canon is present");
+}
+else
+{
+	System.out.println("Canon is not present");
+}
+
+driver.findElement(By.xpath(".//*[@id='content']/div[2]/div[1]/div/div[2]/div[2]/button[2]")).click();
+System.out.println("Clicked on add to wishlist icon");
+
+Thread.sleep(1000);
+boolean text8=driver.getPageSource().contains("Success: You have added Canon EOS 5D to your wish list!");
+if(text8)
+{
+	System.out.println("Success: You have added Canon EOS 5D to your wish list! is present");
+}
+else
+{
+	System.out.println("Success: You have added Canon EOS 5D to your wish list! is not present");
+}
+
+driver.findElement(By.linkText("Wish List (1)")).click();
+
+boolean title2=driver.getTitle().contains("My Wish List");
+if(title2)
+{
+	System.out.println("Title matches");
+}
+else
+{
+	System.out.println("Title not matches");
+}
+
+Thread.sleep(1500);
+
+driver.findElement(By.xpath(".//*[@id='content']/div[2]/div/a")).click();
+driver.close();
+}
+}
